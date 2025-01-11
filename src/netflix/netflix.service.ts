@@ -37,4 +37,22 @@ export class NetflixService {
       );
     }
   }
+
+  async getCountries() {
+    try {
+      const response = await axios.get(`${this.baseUrl}/countries`, {
+        headers: {
+            'X-Rapidapi-Key': '97bfee352bmsh529350ac99792e5p171b11jsnee6aeb5b17f3',
+            'X-Rapidapi-Host': 'netflix-api10.p.rapidapi.com',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw new HttpException(
+        'Failed to fetch countries',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+  
 }

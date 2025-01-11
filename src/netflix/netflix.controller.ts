@@ -14,9 +14,33 @@ export class NetflixController {
     const titles = await this.netflixService.getTitles();
     return {
       success: true,
-      message: "Check out the top 50 Netflix titles, handpicked for you! 🎉",
+      message: "🎥 Netflix Binge-Worthy Picks! 🍿",
+      subtitle: "Here are the top 50 trending titles, ready for your next watch party! 🎉",
       totalTitles: titles.length,
-      data: titles,
+      data: titles.map((title) => ({
+        ...title,
+        cuteTag: `📽️ Dive into "${title.name}" and enjoy the cinematic magic! ✨`,
+      })),
+    };
+  }
+
+  /**
+   * Endpoint to fetch available countries
+   * GET /netflix/countries
+   */
+  @Get('countries')
+  async getCountries() {
+    const countries = await this.netflixService.getCountries();
+    return {
+      success: true,
+      message: "🌍 Netflix Global Availability",
+      subtitle: "Find Netflix in your country! 📺",
+      totalCountries: countries.length,
+      data: countries.map((country, index) => ({
+        id: index + 1,
+        code: country,
+        cuteTag: `📍 Netflix is available in ${country} 🌟`,
+      })),
     };
   }
 }
